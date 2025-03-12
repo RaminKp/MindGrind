@@ -24,6 +24,39 @@
     </div>
   </div>
   <div class="host">
+    
+    
+    {% if feedback %}
+        <p><strong>{{ feedback }}</strong></p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Next</button>
+        </form>
+    {% else %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <div>
+          <p class="questionText">{{ question.text }}</p>
+
+          <label class="correctAnswer">
+              <input type="radio" name="answer" value="{{ question.correct_answer }}" required>
+              {{ question.correct_answer }}
+          </label>
+
+          {% for answer in question.incorrect_answers %}
+          <label class="wrongAnswer">
+              <input type="radio" name="answer" value="{{ answer }}">
+              {{ answer }}
+          </label>
+          {% endfor %}
+
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  {% endif %}
+    
     <img class="hostImg" src="{% static "images/robotPodium.png" %}">
   </div>
   <div class="player playerTwo">
