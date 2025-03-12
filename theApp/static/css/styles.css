@@ -31,6 +31,18 @@ body {
   color: aliceblue;
 }
 
+.questionText{
+  color: aliceblue;
+}
+
+.correctAnswer{
+  color: aliceblue;
+}
+
+.wrongAnswer{
+  color: aliceblue;
+}
+
 .host{
   align-content: end;
 }
@@ -39,6 +51,13 @@ body {
   position: relative;
   right: 20px;
 }
+
+
+
+
+
+
+
 
 .button a{
   color:white;
