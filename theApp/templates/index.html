@@ -17,9 +17,9 @@
 <div class="container">
   <div class="player playerOne">
     <h1 class="playerTitle playerOneTitle">PLAYER 1</h1>
-    <div ontouchstart="">
-      <div class="button">
-        <a href="#">Mobile First</a>
+    <div class="buttonPlace" ontouchstart="">
+      <div class="button button1">
+        <a href="#"></a>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
         </form>
     {% else %}
 
-    <form method="POST">
+    <form class="questionPlace" method="POST">
       {% csrf_token %}
       <div>
           <p class="questionText">{{ question.text }}</p>
@@ -57,10 +57,15 @@
     </form>
   {% endif %}
     
-    <img class="hostImg" src="{% static "images/robotPodium.png" %}">
+  <img class="hostImg" src="{% static "images/robotPodium.png" %}">
   </div>
   <div class="player playerTwo">
     <h1 class="playerTitle playerTwoTitle">PLAYER 2</h1>
+    <div class="buttonPlace" ontouchstart="">
+      <div class="button button2">
+        <a href="#"></a>
+      </div>
+    </div>
   </div>
 </div>
 
