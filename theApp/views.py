@@ -26,6 +26,17 @@ def fetch_trivia_questions():
 
 
 def start_game(request):
+  
+  #debugging --------------------------------------------------------------------
+  print(request)
+
+  # Reset the session when the game starts
+  if 'is_answer' not in request.session:
+    request.session['is_answer'] = None
+
+  if request.session['is_answer'] == None:
+    request.session['is_answer'] = False
+  
   # Reset the session when the game starts
   if 'current_question_index' not in request.session:
     request.session['current_question_index'] = 0
@@ -44,7 +55,7 @@ def start_game(request):
       return render(request, 'game_over.html')
 
   # Handle the "Next" button click
-  if request.method == 'POST':
+  if request.session['is_answer']:
       selected_answer = request.POST.get('answer')
       # Check if the answer is correct
       if selected_answer == current_question.correct_answer:
@@ -54,6 +65,13 @@ def start_game(request):
 
       # Move to the next question only after displaying feedback
       request.session['current_question_index'] = current_index + 1
+
+      # Ensure that next post reqest is not considered an answer request
+      request.session['is_answer'] = False
+
+  else:
+      # Ensure that next post reqest is considered an answer request
+      request.session['is_answer'] = True
 
   return render(request, 'index.html', {'question': current_question, 'feedback': feedback})
 
