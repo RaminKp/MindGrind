@@ -39,17 +39,19 @@
       <div>
           <p class="questionText">{{ question.text }}</p>
 
-          <label class="correctAnswer">
-              <input type="radio" name="answer" value="{{ question.correct_answer }}" required>
-              {{ question.correct_answer }}
+          <label class="answers">
+            <ul class="answersText" name="answer"></ul>
+            {{ question.correct_answer }}
           </label>
 
           {% for answer in question.incorrect_answers %}
-          <label class="wrongAnswer">
-              <input type="radio" name="answer" value="{{ answer }}">
+          <label class="answers">
+              <ul class="answersText" name="answer">/</ul>
               {{ answer }}
           </label>
           {% endfor %}
+
+          <input class="playeranswer" type="text">
 
       </div>
 
