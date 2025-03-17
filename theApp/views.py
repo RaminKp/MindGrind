@@ -32,8 +32,11 @@ def start_game(request):
 
   # Reset the session when the game starts
   if 'is_answer' not in request.session:
-    request.session['is_answer'] = False
+    request.session['is_answer'] = None
 
+  if request.session['is_answer'] == None:
+    request.session['is_answer'] = False
+  
   # Reset the session when the game starts
   if 'current_question_index' not in request.session:
     request.session['current_question_index'] = 0
