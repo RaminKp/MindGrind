@@ -39,17 +39,32 @@ body {
   bottom: 40px;
 }
 
-.questionText{
+
+.questionText {
   color: aliceblue;
+  width: 100%;
+  white-space: nowrap;    
+  overflow: hidden;        
+  border-right: 2px solid #000; 
+  animation: reveal 8s steps(2, end) forwards;
 }
 
-.correctAnswer{
+@keyframes reveal {
+  from {
+      width: 0; /* Start hidden */
+  }
+  to {
+      width: 100%; /* Gradually reveal text */
+  }
+}
+
+/* .correctAnswer{
   color: aliceblue;
 }
 
 .wrongAnswer{
   color: aliceblue;
-}
+} */
 
 .host{
   align-content: end;
