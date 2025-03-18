@@ -39,18 +39,18 @@
       <div>
           <p class="questionText">{{ question.text }}</p>
 
-          <label class="correctAnswer">
+          {% comment %} <label class="Answers">
               <input type="radio" name="answer" value="{{ question.correct_answer }}" required>
               {{ question.correct_answer }}
           </label>
 
           {% for answer in question.incorrect_answers %}
-          <label class="wrongAnswer">
+          <label class="Answer">
               <input type="radio" name="answer" value="{{ answer }}">
               {{ answer }}
           </label>
-          {% endfor %}
-
+          {% endfor %} {% endcomment %}
+          <input type="text" name="" id="">
       </div>
 
       <button type="submit">Submit</button>
