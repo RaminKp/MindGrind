@@ -26,6 +26,12 @@ def fetch_trivia_questions():
 
 
 def start_game(request):
+
+  #teporary solution to reload problem
+  if 'is_answer' not in request.session:
+    request.session['is_answer'] = False
+
+
   # Reset the session when the game starts
   if 'current_question_index' not in request.session:
     request.session['current_question_index'] = 0
@@ -44,7 +50,7 @@ def start_game(request):
       return render(request, 'game_over.html')
 
   # Handle the "Next" button click
-  if request.method == 'POST':
+  if request.session['is_answer'] == True:
       selected_answer = request.POST.get('answer')
       # Check if the answer is correct
       if selected_answer == current_question.correct_answer:
@@ -54,6 +60,12 @@ def start_game(request):
 
       # Move to the next question only after displaying feedback
       request.session['current_question_index'] = current_index + 1
+      
+      #ensure that next time the page loads it will load a question page
+      request.session['is_answer'] = False
+
+  else:
+     request.session['is_answer'] = True
 
   return render(request, 'index.html', {'question': current_question, 'feedback': feedback})
 

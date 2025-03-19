@@ -17,7 +17,7 @@
 <div class="container">
   <div class="player playerOne">
     <h1 class="playerTitle playerOneTitle">PLAYER 1</h1>
-    <div class="buttonPlace" ontouchstart="">
+    <div class="buttonPlace" onclick="startListening()">
       <div class="button button1">
         <a href="#"></a>
       </div>
@@ -50,7 +50,7 @@
               {{ answer }}
           </label>
           {% endfor %} {% endcomment %}
-          <input type="text" name="" id="">
+          <input type="text" name="answer" id="answer">
       </div>
 
       <button type="submit">Submit</button>
