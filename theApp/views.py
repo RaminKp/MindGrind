@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
+import threading
+import pyttsx3
 
 # Create your views here.
 def helloWorld(request):
@@ -8,7 +10,7 @@ def helloWorld(request):
 
 
 def fetch_trivia_questions():
-  url = "https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple"
+  url = "https://opentdb.com/api.php?amount=20&category=22&difficulty=easy&type=multiple"
   response = requests.get(url)
   
   if response.status_code == 200:
@@ -25,8 +27,15 @@ def fetch_trivia_questions():
         )
 
 
-def start_game(request):
+def speak_text(text):
+  engine = pyttsx3.init()
+  engine.setProperty('rate', 135)
+  engine.setProperty('volume', 0.9)
+  engine.say(text)
+  engine.runAndWait()
 
+
+def start_game(request):
   #teporary solution to reload problem
   if 'is_answer' not in request.session:
     request.session['is_answer'] = False
@@ -44,6 +53,7 @@ def start_game(request):
 
   if current_index < len(questions):
       current_question = questions[current_index]
+
       feedback = None # To hold feedback about the answer
   else:
       # Game over logic
@@ -56,7 +66,7 @@ def start_game(request):
       if selected_answer == current_question.correct_answer:
         feedback = "✅ Correct!"
       else:
-        feedback = f"❌ Incorrect! The correct answer was:{current_question.correct_answer}"
+        feedback = f"❌ Incorrect! The correct answer was: {current_question.correct_answer}"
 
       # Move to the next question only after displaying feedback
       request.session['current_question_index'] = current_index + 1
@@ -65,9 +75,13 @@ def start_game(request):
       request.session['is_answer'] = False
 
   else:
-     request.session['is_answer'] = True
+    request.session['is_answer'] = True
+    # Run TTS in a separate thread to avoid blocking the UI
+    threading.Thread(target=speak_text, args=(current_question.text,)).start()
 
   return render(request, 'index.html', {'question': current_question, 'feedback': feedback})
+
+
 
 def reset_game(request):
   # Clear the session to restart the game
