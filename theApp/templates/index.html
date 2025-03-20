@@ -27,10 +27,10 @@
     
     
     {% if feedback %}
-        <p><strong>{{ feedback }}</strong></p>
+        <p class="feedbackText"><strong>{{ feedback }}</strong></p>
         <form method="POST">
             {% csrf_token %}
-            <button type="submit">Next</button>
+            <button type="submit" class="Btn">Next</button>
         </form>
     {% else %}
 
@@ -50,10 +50,10 @@
               {{ answer }}
           </label>
           {% endfor %} {% endcomment %}
-          <input type="text" name="answer" id="answer">
+          <input type="text" name="answer" id="answer" class="answer">
       </div>
 
-      <button type="submit">Submit</button>
+      <button class="Btn" type="submit">Submit</button>
     </form>
   {% endif %}
     
