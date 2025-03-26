@@ -4,8 +4,8 @@ import threading
 import pyttsx3
 
 # Create your views here.
-def helloWorld(request):
-  return render (request, 'index.html', context={
+def Intro(request):
+  return render (request, 'intro.html', context={
   })
 
 
