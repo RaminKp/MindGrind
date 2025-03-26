@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WildGuess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Parkinsans&family=Spicy+Rice&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/intro.css' %}">
+  <script type="text/javascript" src="{% static 'javaScript/intro.js' %}">
+  </script>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="title">MindGrind</h1>
+  <p>Welcome to MindGrind. A fun educational trivia where you can learn about Geography and Science.</p>  
+  <p><strong>Here's how it works:</strong></p>  
+  <ul>
+    <li>When you click on Start Button, You'll see and hear a question</li>  
+    <li>The first player to press the button gets the opportunity to answer.</li>  
+    <li>If they answer correctly, they earn a point. If they get it wrong, the other player gets a chance to respond.</li>  
+  </ul>  
+  <p>The game continues with new questions, testing and improving speed, knowledge, and quick thinking!</p>  
+  <p>Click on Start Button if you are ready!</p>  
+  <button id="startBtn" class="startBtn" type="button" name="Start"><a href="{% url 'start_game' %}">Start</a></button>
+</div>
+
+</body>
+</html>
