@@ -5,6 +5,20 @@ import pyttsx3
 
 # Create your views here.
 def Intro(request):
+
+  # Clear previous session data
+  request.session.flush()
+
+  if request.method == "POST":
+    player1 = request.POST.get("player1")
+    player2 = request.POST.get("player2")
+
+    #store in session
+    request.session['player1'] = player1
+    request.session['player2'] = player2
+
+    return redirect("start_game") # Redirect to the main game page
+
   return render (request, 'intro.html', context={
   })
 
@@ -36,6 +50,11 @@ def speak_text(text):
 
 
 def start_game(request):
+
+  player1 = request.session.get("player1","Player1") # Default if not found
+  player2 = request.session.get("player2","Player2")
+
+
   #teporary solution to reload problem
   if 'is_answer' not in request.session:
     request.session['is_answer'] = False
@@ -79,7 +98,7 @@ def start_game(request):
     # Run TTS in a separate thread to avoid blocking the UI
     threading.Thread(target=speak_text, args=(current_question.text,)).start()
 
-  return render(request, 'index.html', {'question': current_question, 'feedback': feedback})
+  return render(request, 'index.html', {'question': current_question, 'feedback': feedback, "player1": player1, "player2": player2})
 
 
 
