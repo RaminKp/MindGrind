@@ -62,3 +62,29 @@ function startListening() {
 
     recognition.start();
 }
+
+function submitAnswer(answer, player) {
+        fetch('mindGrind/submitAnswer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                answer: answer,
+                player: toString(player)
+            })
+        }).then(response => response.json())
+          .then(data => console.log('Answer submited', data))
+          .catch(error => console.error('Error:', error));
+}
+
+function nextQuestion() {
+    fetch('mindGrind/nextQuestion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json())
+      .then(data => console.log('Moving to next page'))
+      .catch(error => console.error('Error:', error));
+}
