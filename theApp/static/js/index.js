@@ -65,15 +65,15 @@ function startListening(player) {
     recognition.start();
 }
 
-function submitAnswer(answerin, playerin) {
+function submitAnswer(Answer, Player) {
         fetch('/mindGrind/log/submitAnswer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                answer: answerin,
-                player: playerin.toString()
+                answer: Answer,
+                player: Player.toString()
             })
         }).then(response => response.json())
           .then(data => console.log('Answer submited', data))
