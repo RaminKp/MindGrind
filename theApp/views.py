@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 import threading
 import pyttsx3
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 # Create your views here.
 def Intro(request):
@@ -107,3 +109,13 @@ def reset_game(request):
   request.session['current_question_index'] = 0
   return redirect('start_game')
 
+@csrf_exempt
+def submitAnswer(request):
+  """Receive button press logs from JavaScript and store them in the database"""
+  if request.method == 'POST':
+
+    if True:
+      return redirect('start_game')
+      return JsonResponse({'status': 'success'}, status=200)
+
+  return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
