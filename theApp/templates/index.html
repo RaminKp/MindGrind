@@ -17,7 +17,7 @@
 <div class="container">
   <div class="player playerOne">
     <h1 class="playerTitle playerOneTitle">{{ player1 }}</h1>
-    <div class="buttonPlace" onclick="startListening()">
+    <div class="buttonPlace" onclick="startListening(1)">
       <div class="button button1">
         <a href="#" id="button1"></a>
       </div>
@@ -53,7 +53,7 @@
           <input type="text" name="answer" id="answer" class="answer">
       </div>
 
-      <button class="Btn" type="submit">Submit</button>
+      <button class="Btn" type="submit" onclick="submitAnswer">Submit</button>
     </form>
   {% endif %}
     
@@ -61,7 +61,7 @@
   </div>
   <div class="player playerTwo">
     <h1 class="playerTitle playerTwoTitle">{{player2}}</h1>
-    <div class="buttonPlace" ontouchstart="">
+    <div class="buttonPlace" onclick="startListening(0)">
       <div class="button button2">
         <a href="#" id="button2"></a>
       </div>

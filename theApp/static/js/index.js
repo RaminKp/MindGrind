@@ -35,15 +35,15 @@ document.addEventListener("keydown", function(event) {
 });
 
 
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") { //Spacebar
-        document.getElementById("button2").click();
-    }
-});
+// document.addEventListener("keydown", function(event) {
+//     if (event.key === "Enter") { //enter
+//         document.getElementById("button2").click();
+//     }
+// });
 
 
 //Begins recording user input
-function startListening() {
+function startListening(player) {
     if (!('webkitSpeechRecognition' in window)) {
         alert("Not supported. Try again.");
                     return;
@@ -58,20 +58,22 @@ function startListening() {
         let command = event.results[0][0].transcript.trim();
         document.getElementById("answer").value = command;
         document.getElementById("answer").innerText = command;
+        result = command;
+        submitAnswer(command, player);
     };
 
     recognition.start();
 }
 
-function submitAnswer(answer, player) {
-        fetch('mindGrind/submitAnswer', {
+function submitAnswer(Answer, Player) {
+        fetch('/mindGrind/log/submitAnswer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                answer: answer,
-                player: toString(player)
+                answer: Answer,
+                player: Player.toString()
             })
         }).then(response => response.json())
           .then(data => console.log('Answer submited', data))
