@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Parkinsans&family=Spicy+Rice&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/intro.css' %}">
-  <script type="text/javascript" src="{% static 'javaScript/intro.js' %}">
+  <script type="text/javascript" src="{% static 'js/intro.js' %}">
   </script>
 </head>
 <body>
@@ -20,7 +20,7 @@
   <p><strong>Here's how it works:</strong></p>  
   <ul>
     <li>When you click on Start Button, You'll see and hear a question. The first player to press the button gets the opportunity to answer.</li>  
-    <li>If they answer correctly, they earn a point. If they get it wrong, the other player gets a chance to respond.</li>  
+    <li>If they answer correctly, they earn a point. If they get it wrong, we move to the next question.</li>  
   </ul>  
   {% comment %} <p>The game continues with new questions, testing and improving speed, knowledge, and quick thinking!</p>   {% endcomment %}
   <p class="lastSentence">Please enter your Names in the boxes below and then click on Start Button</p>  
@@ -31,7 +31,7 @@
     <label class="playerLabel Player2label">Player2: </label>
     <input type="text" name="player2" class="playerName player2name" id="player2name" required>
     <br>
-    <button id="startBtn" class="startBtn" type="submit" name="Start"><a href="{% url 'start_game' %}">Start Game</a></button>
+    <button id="startBtn" class="startBtn" type="submit" name="Start">Start Game</button>
   </form>
 
 </div>
