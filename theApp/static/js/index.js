@@ -6,8 +6,8 @@ document.addEventListener("keydown", function(event) {
 
         if (button) {
             button.classList.add("pressed");  // Add custom class for styling
-
             button.click();  // Simulate click
+            logButtonPress("LeftPlayerClicked"); 
 
             setTimeout(() => {
                 button.classList.remove("pressed");  // Remove class after animation
@@ -24,8 +24,8 @@ document.addEventListener("keydown", function(event) {
 
         if (button) {
             button.classList.add("pressed");  // Add custom class for styling
-
             button.click();  // Simulate click
+            logButtonPress("RightPlayerClicked"); 
 
             setTimeout(() => {
                 button.classList.remove("pressed");  // Remove class after animation
@@ -89,4 +89,20 @@ function nextQuestion() {
     }).then(response => response.json())
       .then(data => console.log('Moving to next page'))
       .catch(error => console.error('Error:', error));
+}
+
+
+
+function logButtonPress(buttonName) {
+    fetch('/log/button-press/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            button_name: buttonName
+        })
+    }).then(response => response.json())
+      .then(data => console.log('Button Press Logged:', data))
+      .catch(error => console.error('Error logging button press:', error));
 }
