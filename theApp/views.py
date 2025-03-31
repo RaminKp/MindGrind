@@ -4,7 +4,27 @@ import threading
 import pyttsx3
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+import json
+from .models import ButtonPressLog
+from .models import playerScore
 
+
+
+
+# Initializes text to speach
+engine = pyttsx3.init()
+engine.setProperty('rate', 135)
+engine.setProperty('volume', 0.9)
+
+
+def speak_text(text):
+  global engine
+  if(engine._inLoop):
+    engine.endLoop()
+  engine.say(text)
+  engine.startLoop()
+
+@csrf_exempt
 # Create your views here.
 def Intro(request):
 
@@ -14,12 +34,19 @@ def Intro(request):
   if request.method == "POST":
     player1 = request.POST.get("player1")
     player2 = request.POST.get("player2")
+    print("anything")
 
     #store in session
     request.session['player1'] = player1
     request.session['player2'] = player2
 
+    playerScore.objects.create(player1name=player1, player2name=player2)
+
     return redirect("start_game") # Redirect to the main game page
+
+
+
+  threading.Thread(target=speak_text, args=("Welcome to MindGrind. A fun educational trivia where you can learn about Geography and Science.Here's how it works: When you click on Start Button, You'll see and hear a question. The first player to press the button gets the opportunity to answer. If they answer correctly, they earn a point. If they get it wrong, we move to the next question. Please enter your Names in the boxes below and then click on Start Button",)).start()
 
   return render (request, 'intro.html', context={
   })
@@ -43,17 +70,10 @@ def fetch_trivia_questions():
         )
 
 
-def speak_text(text):
-  engine = pyttsx3.init()
-  engine.setProperty('rate', 135)
-  engine.setProperty('volume', 0.9)
-  engine.say(text)
-  engine.runAndWait()
-
-
+@csrf_exempt
 def start_game(request):
 
-  player1 = request.session.get("player1","Player1") # Default if not found
+  player1 = request.session.get("player1","Player1") # the second value is Default if not found
   player2 = request.session.get("player2","Player2")
 
 
@@ -115,7 +135,23 @@ def submitAnswer(request):
   if request.method == 'POST':
 
     if True:
-      return redirect('start_game')
+      # return redirect('start_game')
+      return JsonResponse({'status': 'success'}, status=200)
+
+  return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+
+
+# Recieving button and time information
+@csrf_exempt
+def log_button_press(request):
+  """Receive button press logs from JavaScript and store them in the database"""
+  if request.method == 'POST':
+    data = json.loads(request.body)
+    button_name = data.get('button_name')
+
+    if button_name:
+      ButtonPressLog.objects.create(button_name=button_name)
       return JsonResponse({'status': 'success'}, status=200)
 
   return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
