@@ -65,14 +65,18 @@ function startListening(player) {
     recognition.start();
 }
 
-function submitAnswer(Answer, Player) {
+//Called when voice regognition is compleat
+function submitAnswer(PlayerAnswer, Player) {
         fetch('/mindGrind/log/submitAnswer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                answer: Answer,
+                playerAnswer: PlayerAnswer,
+                //This is probably a temporary solution (session data cannot be accessed via js so I made a hidden field here instead)
+                //-------------------------------------------------------------------------------------------------------------------
+                correctAnswer: document.getElementById("correct_answer"),
                 player: Player.toString()
             })
         }).then(response => response.json())

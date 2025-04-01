@@ -8,8 +8,8 @@ import json
 from .models import ButtonPressLog
 from .models import playerScore
 
-
-
+# The playerScore object associated with the current instance of the game
+activePlayerScore = None
 
 # Initializes text to speach
 engine = pyttsx3.init()
@@ -40,7 +40,8 @@ def Intro(request):
     request.session['player1'] = player1
     request.session['player2'] = player2
 
-    playerScore.objects.create(player1name=player1, player2name=player2)
+    global activePlayerScore
+    activePlayerScore = playerScore.objects.create(player1name=player1, player2name=player2)
 
     return redirect("start_game") # Redirect to the main game page
 
@@ -133,9 +134,23 @@ def reset_game(request):
 def submitAnswer(request):
   """Receive button press logs from JavaScript and store them in the database"""
   if request.method == 'POST':
-
+    # Data passed by js
+    data = json.loads(request.body)
+    playerAnswer = data.get('playerAnswer')
+    correctAnswer = data.get('correctAnswer')
+    player = data.get('player')
+    # The active player score object
+    global activePlayerScore
+    print(data)
+    # Logic to determine score adjustments
     if True:
-      # return redirect('start_game')
+      if True:
+        if player == '1':
+          print("updating scores")
+          activePlayerScore.player1score = 1
+        if player == '2':
+          print("updating scores")
+          activePlayerScore.player2score = 1
       return JsonResponse({'status': 'success'}, status=200)
 
   return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

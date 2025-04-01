@@ -61,13 +61,17 @@
   </div>
   <div class="player playerTwo">
     <h1 class="playerTitle playerTwoTitle">{{player2}}</h1>
-    <div class="buttonPlace" onclick="startListening(0)">
+    <div class="buttonPlace" onclick="startListening(2)">
       <div class="button button2">
         <a href="#" id="button2"></a>
       </div>
     </div>
   </div>
 </div>
+
+<!--This is probably a temporary solution (session data cannot be accessed via js so I made a hidden field here instead)-->
+<!--________________________________________________________________________________________________________________________-->
+<p hidden id="correct_answer">{{ question.correct_answer }}</p> 
 
 <script>
 
