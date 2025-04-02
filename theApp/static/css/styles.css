@@ -40,6 +40,8 @@ body {
   width: 100%;
   white-space: nowrap;    
   overflow: hidden;        
+  font-size: 30px;
+  margin-bottom: 2px;
   border-right: 2px solid #000; 
   animation: reveal 4s ease-out forwards;
 }
@@ -179,4 +181,5 @@ body {
 
 .feedbackText{
   color: aliceblue;
+  font-size: 20px;
 }
