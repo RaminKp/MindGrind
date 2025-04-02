@@ -123,7 +123,7 @@ def start_game(request):
     # Run TTS in a separate thread to avoid blocking the UI
     threading.Thread(target=speak_text, args=(current_question.text,)).start()
 
-  return render(request, 'index.html', {'question': current_question, 'feedback': feedback, "player1": player1, "player2": player2})
+  return render(request, 'index.html', {'question': current_question, 'feedback': feedback, "player1": player1, "player2": player2, 'score1': activePlayerScore.player1score, 'score2': activePlayerScore.player2score, })
 
 
 
@@ -145,14 +145,19 @@ def submitAnswer(request):
     global activePlayerScore
     print(data)
     # Logic to determine score adjustments
-    if True:
-      if True:
+    if playerAnswer and correctAnswer:
+      if playerAnswer == correctAnswer:
         if player == '1':
           print("updating scores")
-          activePlayerScore.player1score = 1
+          activePlayerScore.player1score = str(int(activePlayerScore.player1score) + 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player1score)
         if player == '2':
           print("updating scores")
-          activePlayerScore.player2score = 1
+          activePlayerScore.player2score = str(int(activePlayerScore.player2score) + 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player2score)
+        print("incorrect")
       return JsonResponse({'status': 'success'}, status=200)
 
   return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

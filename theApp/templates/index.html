@@ -16,7 +16,7 @@
 
 <div class="container">
   <div class="player playerOne">
-    <h1 class="playerTitle playerOneTitle">{{ player1 }}</h1>
+    <h1 class="playerTitle playerOneTitle">{{ player1 }}  Score: {{ score1 }}</h1>
     <div class="buttonPlace" onclick="startListening(1)">
       <div class="button button1">
         <a href="#" id="button1"></a>
@@ -60,7 +60,7 @@
   <img class="hostImg" src="{% static "images/robotPodium.png" %}">
   </div>
   <div class="player playerTwo">
-    <h1 class="playerTitle playerTwoTitle">{{player2}}</h1>
+    <h1 class="playerTitle playerTwoTitle">{{player2}}  Score: {{ score2 }}</h1>
     <div class="buttonPlace" onclick="startListening(2)">
       <div class="button button2">
         <a href="#" id="button2"></a>
@@ -71,7 +71,7 @@
 
 <!--This is probably a temporary solution (session data cannot be accessed via js so I made a hidden field here instead)-->
 <!--________________________________________________________________________________________________________________________-->
-<p hidden id="correct_answer">{{ question.correct_answer }}</p> 
+<p hidden id="correct_answer" value="{{ question.correct_answer }}">{{ question.correct_answer }}</p> 
 
 <script>
 
