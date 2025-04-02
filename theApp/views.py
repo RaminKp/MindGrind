@@ -123,7 +123,7 @@ def start_game(request):
     # Run TTS in a separate thread to avoid blocking the UI
     threading.Thread(target=speak_text, args=(current_question.text,)).start()
 
-  return render(request, 'index.html', {'question': current_question, 'feedback': feedback, "player1": player1, "player2": player2})
+  return render(request, 'index.html', {'question': current_question, 'feedback': feedback, "player1": player1, "player2": player2, 'score1': activePlayerScore.player1score, 'score2': activePlayerScore.player2score, })
 
 
 
