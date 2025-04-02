@@ -3,10 +3,12 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();  // Prevent scrolling
 
         let button = document.getElementById("button1"); // Select the button
+        let hoverSound = new Audio("/static/sounds/ring.mp3");
 
         if (button) {
             button.classList.add("pressed");  // Add custom class for styling
             button.click();  // Simulate click
+            hoverSound.play(); // Play sound effect
             logButtonPress("LeftPlayerClicked"); 
 
             setTimeout(() => {
@@ -21,10 +23,12 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();  // Prevent what enter might does
 
         let button = document.getElementById("button2"); // Select the button
+        let hoverSound = new Audio("/static/sounds/blup.mp3");
 
         if (button) {
             button.classList.add("pressed");  // Add custom class for styling
             button.click();  // Simulate click
+            hoverSound.play(); // Play sound effect
             logButtonPress("RightPlayerClicked"); 
 
             setTimeout(() => {
