@@ -99,7 +99,15 @@ def start_game(request):
       feedback = None # To hold feedback about the answer
   else:
       # Game over logic
-      return render(request, 'game_over.html')
+      if int(activePlayerScore.player1score) > int(activePlayerScore.player2score):
+        endMsg = f'{player1} Wins!'
+      elif int(activePlayerScore.player1score) < int(activePlayerScore.player2score):
+        endMsg = f'{player2} Wins!'
+      else:
+        endMsg = f'Its a Tie!'
+
+      threading.Thread(target=speak_text, args=(endMsg,)).start()
+      return render(request, 'game_over.html', {'endMessage': endMsg})
 
   # Handle the "Next" button click
   if request.session['is_answer'] == True:

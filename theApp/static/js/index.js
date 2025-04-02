@@ -1,3 +1,5 @@
+speechRunning = false;
+
 document.addEventListener("keydown", function(event) {
     if (event.key === " ") { 
         event.preventDefault();  // Prevent scrolling
@@ -48,6 +50,12 @@ document.addEventListener("keydown", function(event) {
 
 //Begins recording user input
 function startListening(player) {
+    if(speechRunning){
+        return
+    }
+
+    speechRunning = true;
+
     if (!('webkitSpeechRecognition' in window)) {
         alert("Not supported. Try again.");
                     return;
@@ -63,7 +71,8 @@ function startListening(player) {
         document.getElementById("answer").value = command;
         document.getElementById("answer").innerText = command;
         result = command;
-        submitAnswer(command, player);
+        submitAnswer(command, player);   
+        speechRunning = false;
     };
 
     recognition.start();
@@ -86,10 +95,12 @@ function submitAnswer(PlayerAnswer, Player) {
         }).then(response => response.json())
           .then(data => console.log('Answer submited', data))
           .catch(error => console.error('Error:', error));
+
+        //nextQuestion();
 }
 
 function nextQuestion() {
-    fetch('mindGrind/nextQuestion', {
+    fetch('mindGrind/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
