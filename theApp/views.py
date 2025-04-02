@@ -47,7 +47,7 @@ def Intro(request):
 
 
 
-  threading.Thread(target=speak_text, args=("Welcome to MindGrind. A fun educational trivia where you can learn about Geography and Science.Here's how it works: When you click on Start Button, You'll see and hear a question. The first player to press the button gets the opportunity to answer. If they answer correctly, they earn a point. If they get it wrong, we move to the next question. Please enter your Names in the boxes below and then click on Start Button",)).start()
+  threading.Thread(target=speak_text, args=("Welcome to MindGrind. A fun educational trivia where you can learn about Geography and Science. Here's how it works: When you click on Start Button, You'll see and hear a question. The first player to press the button gets the opportunity to answer. If they answer correctly, they earn a point. If they get it wrong, we move to the next question. Please enter your Names in the boxes below and then click on Start Button",)).start()
 
   return render (request, 'intro.html', context={
   })
@@ -106,9 +106,11 @@ def start_game(request):
       selected_answer = request.POST.get('answer')
       # Check if the answer is correct
       if selected_answer == current_question.correct_answer:
-        feedback = "✅ Correct!"
+        feedback = "That was Correct! Good Job"
+        threading.Thread(target=speak_text, args=(feedback,)).start()
       else:
-        feedback = f"❌ Incorrect! The correct answer was: {current_question.correct_answer}"
+        feedback = f"Incorrect! The correct answer was: {current_question.correct_answer}"
+        threading.Thread(target=speak_text, args=(feedback,)).start()
 
       # Move to the next question only after displaying feedback
       request.session['current_question_index'] = current_index + 1
