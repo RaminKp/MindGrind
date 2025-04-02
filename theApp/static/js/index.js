@@ -76,7 +76,7 @@ function submitAnswer(PlayerAnswer, Player) {
                 playerAnswer: PlayerAnswer,
                 //This is probably a temporary solution (session data cannot be accessed via js so I made a hidden field here instead)
                 //-------------------------------------------------------------------------------------------------------------------
-                correctAnswer: document.getElementById("correct_answer"),
+                correctAnswer: document.getElementById("correct_answer").textContent,
                 player: Player.toString()
             })
         }).then(response => response.json())

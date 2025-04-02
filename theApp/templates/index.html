@@ -71,7 +71,7 @@
 
 <!--This is probably a temporary solution (session data cannot be accessed via js so I made a hidden field here instead)-->
 <!--________________________________________________________________________________________________________________________-->
-<p hidden id="correct_answer">{{ question.correct_answer }}</p> 
+<p hidden id="correct_answer" value="{{ question.correct_answer }}">{{ question.correct_answer }}</p> 
 
 <script>
 

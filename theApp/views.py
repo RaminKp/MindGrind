@@ -143,14 +143,19 @@ def submitAnswer(request):
     global activePlayerScore
     print(data)
     # Logic to determine score adjustments
-    if True:
-      if True:
+    if playerAnswer and correctAnswer:
+      if playerAnswer == correctAnswer:
         if player == '1':
           print("updating scores")
-          activePlayerScore.player1score = 1
+          activePlayerScore.player1score = str(int(activePlayerScore.player1score) + 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player1score)
         if player == '2':
           print("updating scores")
-          activePlayerScore.player2score = 1
+          activePlayerScore.player2score = str(int(activePlayerScore.player2score) + 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player2score)
+        print("incorrect")
       return JsonResponse({'status': 'success'}, status=200)
 
   return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
