@@ -100,9 +100,9 @@ def start_game(request):
   else:
       # Game over logic
       if int(activePlayerScore.player1score) > int(activePlayerScore.player2score):
-        endMsg = f'{player1} Wins!'
+        endMsg = f'The winner is, {player1}!'
       elif int(activePlayerScore.player1score) < int(activePlayerScore.player2score):
-        endMsg = f'{player2} Wins!'
+        endMsg = f'The winner is {player2}!'
       else:
         endMsg = f'Its a Tie!'
 
