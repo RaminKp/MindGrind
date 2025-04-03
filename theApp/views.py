@@ -165,7 +165,19 @@ def submitAnswer(request):
           activePlayerScore.player2score = str(int(activePlayerScore.player2score) + 1)
           activePlayerScore.save()
           print(activePlayerScore.player2score)
-        print("incorrect")
+
+      else:
+        if player == '1':
+          print("updating scores")
+          activePlayerScore.player1score = str(int(activePlayerScore.player1score) - 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player1score)
+        if player == '2':
+          print("updating scores")
+          activePlayerScore.player2score = str(int(activePlayerScore.player2score) - 1)
+          activePlayerScore.save()
+          print(activePlayerScore.player2score)
+
       return JsonResponse({'status': 'success'}, status=200)
 
   return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
